@@ -1,6 +1,6 @@
-const { ALL } = require("dns");
-const fs = require("fs")
-let rutaProductos="./data/products.json"
+const fs= require("fs");
+
+let rutaProductos="./../data/products.json"
 
 const productos = [
     { "id": 1, "nombre": "Pan", "stock": 10 },
@@ -16,4 +16,6 @@ console.log("Archivo escrito correctamente");
 
     
     let productosDesdeJson = JSON.parse(fs.readFileSync(rutaProductos,{encoding:"utf-8"}))
-    console.log(productosDesdeJson[3].nombre)  
+    console.log(productosDesdeJson[3].nombre)
+
+    module.exports={productos}
