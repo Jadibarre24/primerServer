@@ -1,5 +1,6 @@
 const express= require("express");
-const {productos}= require("./data/products.json");
+const fs= require ("fs")
+const productosManager= require (`./dao/productosManager`);
 
 const PORT=8080
 
@@ -8,6 +9,8 @@ const app=express()
 app.use(express.json());
 app.use(express.urlencoded({extedend:true}));
 
+productosManager.path= (`./data/products.json`)
+
 app.get("/",(req,res)=>{
     
     res.send("express server")   
@@ -15,11 +18,11 @@ app.get("/",(req,res)=>{
 })
 
 
-app.get("/productos", (req,res)=>{
-    res.send(fs.readFilesync(productos,{encoding:"utf-8"}))
+app.get("/productos",async (req,res)=>{
+    let productos=await productosManager.getProductos()
+    //res.send(`${productos}`)
     console.log(productos)
 })
 
 const server=app.listen(PORT,()=> console.log(`Server online en puerto ${PORT}`))  
-//const fs= require ("fs")
  

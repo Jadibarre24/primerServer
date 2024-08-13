@@ -1,6 +1,6 @@
 const fs= require("fs");
 
-let rutaProductos="./../data/products.json"
+let rutaProductos="./data/products.json"
 
 const productos = [
     { "id": 1, "nombre": "Pan", "stock": 10 },
@@ -12,7 +12,7 @@ const productos = [
 ];
 
 fs.writeFileSync(rutaProductos, JSON.stringify(productos, null, 5));
-console.log("Archivo escrito correctamente");
+
 
     
     let productosDesdeJson = JSON.parse(fs.readFileSync(rutaProductos,{encoding:"utf-8"}))
