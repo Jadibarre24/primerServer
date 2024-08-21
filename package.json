@@ -4,7 +4,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node ./src/app.js",
-    "play": "nodemon ./src/app.js",
+    "dev": "nodemon --verbose ./src/app.js",
+    "data": "node ./src/data/initializer.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

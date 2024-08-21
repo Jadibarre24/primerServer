@@ -1,19 +1,10 @@
 const fs= require("fs");
 
-let rutaProductos="./src/data/products.json"
+let rutaProductos="./src/data/products.json";
 
-const productos = [
-    { "id": 1, "nombre": "Pan", "stock": 10 },
-    { "id": 2, "nombre": "Queso", "stock": 80 },
-    { "id": 3, "nombre": "Jamon", "stock": 15 },
-    { "id": 4, "nombre": "Ketchup", "stock": 200 },
-    { "id": 5, "nombre": "Tomate", "stock": 10 },
-    { "id": 6, "nombre": "Lechuga", "stock": 10 }
-];
 
-fs.writeFileSync(rutaProductos, JSON.stringify(productos, null, 5));
+let productos = JSON.parse(fs.readFileSync(rutaProductos,{encoding:"utf-8"}));
 
-    let productosDesdeJson = JSON.parse(fs.readFileSync(rutaProductos,{encoding:"utf-8"}))
-    console.log(productosDesdeJson[3].nombre)
 
-    module.exports={productos}
+
+    

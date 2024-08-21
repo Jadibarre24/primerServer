@@ -1,7 +1,7 @@
 const express= require("express");
 const fs= require ("fs")
 const productosManager= require (`./dao/productosManager.js`);
-const { productos } = require("./data/products.js");
+
 
 const PORT=8080
 
@@ -13,7 +13,6 @@ app.use(express.urlencoded({extedend:true}));
 productosManager.path= "./src/data/products.json"
 
 app.get("/",(req,res)=>{
-    //res.send("express server")   
     res.setHeader('Content-Type','text/plain');
     res.status(200).send('express server OK');
 })
@@ -31,6 +30,19 @@ app.get("/productos/:id",async (req,res)=>{
     if (isNaN(id)){
         return res.send("Ingrese id valido")
     }
+app.get("/productos",(req, res)=>{
+    let {limit}=req.query
+    if (limit){
+        limit=Number(limit)
+        if(isNaN(limit)){
+            return res.send("El filtro debe ser un numero")
+        }else{
+            limit=productos.length
+        }
+        let resultado=productos.slice(0,limit)
+        res.send(resultado)
+    }
+})
     let productos= await productosManager.getProductos()
     let producto = productos.find(p => p.id===id)
         if (!productos){
@@ -41,3 +53,4 @@ app.get("/productos/:id",async (req,res)=>{
 
 const server=app.listen(PORT,()=> console.log(`Server online en puerto ${PORT}`))  
 
+ 

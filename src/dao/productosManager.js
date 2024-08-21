@@ -1,6 +1,6 @@
 const { json } = require("express")
 const fs=require("fs")
-//const { productos } = require("../data/products.json")
+
 
 class productosManager{
     static path
