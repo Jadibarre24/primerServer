@@ -75,12 +75,32 @@
           "stock": 100
      },
      {
-          "id": 16,
-          "nombre": "Aros de cebolla"
-     },
-     {
           "id": 17,
           "nombre": "Platano",
           "class": "Base"
+     },
+     {
+          "id": 18,
+          "nombre": "mayonesa",
+          "class": "salsa",
+          "stock": 100
+     },
+     {
+          "id": 19,
+          "nombre": "Aros de cebolla",
+          "class": "Adicionales",
+          "stock": 80
+     },
+     {
+          "id": 20,
+          "nombre": "Chips de papa",
+          "class": "Adicionales",
+          "stock": 80
+     },
+     {
+          "id": 21,
+          "nombre": "Miel mostaza",
+          "class": "Salsa",
+          "stock": 80
      }
 ]
