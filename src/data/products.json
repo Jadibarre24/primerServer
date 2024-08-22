@@ -73,5 +73,14 @@
           "id": 15,
           "nombre": "Carne angus",
           "stock": 100
+     },
+     {
+          "id": 16,
+          "nombre": "Aros de cebolla"
+     },
+     {
+          "id": 17,
+          "nombre": "Platano",
+          "class": "Base"
      }
 ]

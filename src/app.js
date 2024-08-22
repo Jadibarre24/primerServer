@@ -7,9 +7,8 @@ const PORT=8080
 
 const app=express()
 
-app.use(express.json());
+app.use(express.json()); 
 app.use(express.urlencoded({extedend:true}));
-
 productosManager.path= "./src/data/products.json"
 
 app.get("/",(req,res)=>{
@@ -18,24 +17,33 @@ app.get("/",(req,res)=>{
 })
 
 
-app.get("/productos",async (req,res)=>{
-    let productos=await productosManager.getProductos()
+app.get("/api/productos/",async (req,res)=>{
+    let productos
+    try {
+        productos=await productosManager.getProductos()
+        
+    } catch (error) {
+        console.log(error);
+        res.setHeader('Content-Type','application/json');
+        return res.status(500).json(
+            {
+                error:`Error inesperado en el servidor - Intente más tarde, o contacte a su administrador`,
+                detalle:`${error.message}`
+            }
+        )
+        
+    }
     res.send(productos)
     console.log(productos)
 })
 
-app.get("/productos/:id",async (req,res)=>{
-    let {id} =req.params
-    id = Number(id)
-    if (isNaN(id)){
-        return res.send("Ingrese id valido")
-    }
-app.get("/productos",(req, res)=>{
+app.get("/api/productos/",(req, res)=>{
     let {limit}=req.query
     if (limit){
         limit=Number(limit)
         if(isNaN(limit)){
-            return res.send("El filtro debe ser un numero")
+            res.setHeader('Content-Type','application/json');
+            return res.status(400).json({error:`El filtro debe ser un numero`})
         }else{
             limit=productos.length
         }
@@ -43,14 +51,68 @@ app.get("/productos",(req, res)=>{
         res.send(resultado)
     }
 })
-    let productos= await productosManager.getProductos()
+
+app.get("/api/productos/:id",async (req,res)=>{
+    let {id} =req.params
+    id = Number(id)
+    if (isNaN(id)){
+       res.setHeader('Content-Type','application/json');
+       return res.status(400).json({error:`Ingrese id valido`})
+    }
+     
+    let productos
+    try {
+        productos= await productosManager.getProductos()
+    } catch (error) {
+        console.log(error);
+        res.setHeader('Content-Type','application/json');
+        return res.status(500).json(
+            {
+                error:`Error inesperado en el servidor - Intente más tarde, o contacte a su administrador`,
+                detalle:`${error.message}`
+            }
+        )
+    }
+    
     let producto = productos.find(p => p.id===id)
         if (!productos){
-            return res.send (`Producto con id ${id} not found`)
+            res.setHeader('Content-Type','application/json');
+            return res.status(400).json({error:`Producto con id ${id} not found`})
         }   
-    res.send(producto)
+    res.status(200).json({producto});
 })
+
+app.post("/api/productos/",async(req,res)=> {
+    let {nombre,...otros}=req.body 
+    if (!nombre){
+        res.setHeader('Content-Type','application/json');
+        return res.status(400).json({error:`Agregue nombre `})
+    }
+    
+    let productos=await productosManager.getProductos()
+    let existe=productos.find(p=>p.nombre.toLowerCase()===nombre.toLowerCase())
+    if (existe){
+        res.setHeader('Content-Type','application/json');
+        return res.status(400).json({error:`Ya exixte producto llamado ${nombre} `})
+    }
+
+    try {
+        let produtoNuevo=await productosManager.addProducto({nombre, ...otros});
+        res.setHeader('Content-Type','application/json');
+        return res.status(200).json({produtoNuevo});
+    } catch (error) {
+        console.log(error);
+        res.setHeader('Content-Type','application/json');
+        return res.status(500).json(
+            {
+                error:`Error inesperado en el servidor - Intente más tarde, o contacte a su administrador`,
+                detalle:`${error.message}`
+            }
+        )
+        
+    }
+}) 
+
 
 const server=app.listen(PORT,()=> console.log(`Server online en puerto ${PORT}`))  
 
- 
