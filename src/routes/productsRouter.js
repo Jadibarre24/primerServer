@@ -3,7 +3,7 @@ const productosManager= require ("../dao/productosManager")
 
 const router = Router()
 
-productosManager.path= "./src/data/products.json"
+productosManager.path= "./src/data/productos.json"
 
 router.get("/", async (req, res) => {
     let productos
@@ -48,22 +48,7 @@ router.get("/", async (req, res) => {
     return res.status(200).json({ resultado });
 })
 
-router.get("/api/productos/", (req, res) => {
-    let { limit } = req.query
-    if (limit) {
-        limit = Number(limit)
-        if (isNaN(limit)) {
-            res.setHeader('Content-Type', 'application/json');
-            return res.status(400).json({ error: `El filtro debe ser un numero` })
-        } else {
-            limit = productos.length
-        }
-        let resultado = productos.slice(0, limit)
-        res.send(resultado)
-    }
-})
-
-router.get("/:pid", async (req, res) => {
+router.get("/:id", async (req, res) => {
     let { id } = req.params
     id = Number(id)
     if (isNaN(id)) {
