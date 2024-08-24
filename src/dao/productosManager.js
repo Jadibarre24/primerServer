@@ -1,4 +1,4 @@
-//const { json } = require("express")
+const { json } = require("express")
 const fs=require("fs")
 
 
@@ -35,15 +35,12 @@ class productosManager{
 
     static async rescueProducto(producto={}){
         let productos=await this.getProductos()
-        let id = 1
-        if (productos.length>0){
-            id=Math.max(...productos.map(d=>d.id))
-        }
-
+        let id= productos.length>0? Math.max(...productos.map(d=>d.id))+1:1;
+        
         let rescueProducto={
             id,
             ...producto
-        }
+        };
 
         productos.push (rescueProducto)
     }
@@ -60,7 +57,7 @@ class productosManager{
             id
         }
         await fs.promises.writeFile(this.path,JSON.stringify(productos,null,5))
-        return prodctos[indiceProducto]
+        return productos[indiceProducto]
     }
     static async deleteProduct (id){
         let productos =await this.getProductos()

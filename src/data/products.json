@@ -1,106 +1,131 @@
 [
      {
           "id": 1,
-          "nombre": "Pan",
-          "stock": 10
+          "title": "Pan",
+          "description": "Base para sandwich o hambuguesa",
+          "code": "BR",
+          "price": 5000,
+          "status": true,
+          "stock": 100,
+          "category": "Base"
      },
      {
           "id": 2,
-          "nombre": "Queso",
-          "stock": 80
+          "title": "Queso",
+          "description": "Suave y cremoso",
+          "code": "CH",
+          "price": 3000,
+          "status": true,
+          "stock": 100,
+          "category": "Adicionales"
      },
      {
           "id": 3,
-          "nombre": "Jamon",
-          "stock": 15
+          "title": "Lechuga",
+          "description": "Vegetales Frescos",
+          "code": "LE",
+          "price": 2000,
+          "status": true,
+          "stock": 100,
+          "category": "Adicionales"
      },
      {
           "id": 4,
-          "nombre": "Ketchup",
-          "stock": 200
+          "title": "Tomate",
+          "description": "Vegetales Frescos",
+          "code": "TO",
+          "price": 2000,
+          "status": true,
+          "stock": 100,
+          "category": "Adicionales"
      },
      {
           "id": 5,
-          "nombre": "Tomate",
-          "stock": 10
+          "title": "Pepinillos",
+          "description": "Vegetales en conserva",
+          "code": "TO",
+          "price": 2000,
+          "status": true,
+          "stock": 100,
+          "category": "Adicionales"
      },
      {
           "id": 6,
-          "nombre": "Lechuga",
-          "stock": 10
+          "title": "Aceitunas",
+          "description": "Vegetales en conserva",
+          "code": "AC",
+          "price": 2000,
+          "status": true,
+          "stock": 100,
+          "category": "Adicionales"
      },
      {
           "id": 7,
-          "nombre": "Beicon",
-          "stock": 100
+          "title": "Chicharron",
+          "description": "Panceta de cerdo crujiente",
+          "code": "CHi",
+          "price": 4000,
+          "status": true,
+          "stock": 100,
+          "category": "Adicionales"
      },
      {
           "id": 8,
-          "nombre": "Papas pequeñas",
-          "stock": 100
+          "title": "Tocineta",
+          "description": "Beicon de cerdo",
+          "code": "BE",
+          "price": 4000,
+          "status": true,
+          "stock": 100,
+          "category": "Adicionales"
      },
      {
           "id": 9,
-          "nombre": "Papas madianas",
-          "stock": 100
+          "title": "Cebolla",
+          "description": "Vegetales frescos",
+          "code": "CE",
+          "price": 1000,
+          "status": true,
+          "stock": 100,
+          "category": "Adicionales"
      },
      {
           "id": 10,
-          "nombre": "Papas grandes",
-          "stock": 100
+          "title": "Cebolla caramelizada",
+          "description": "Vegetales frescos en caramero de panela",
+          "code": "CEC",
+          "price": 2000,
+          "status": true,
+          "stock": 100,
+          "category": "Adicionales"
      },
      {
           "id": 11,
-          "nombre": "Cebolla",
-          "stock": 100
+          "title": "Aros de cebolla",
+          "description": "Vegetales frescos apanados",
+          "code": "ACE",
+          "price": 3000,
+          "status": true,
+          "stock": 100,
+          "category": "Adicionales"
      },
      {
           "id": 12,
-          "nombre": "Carne",
-          "stock": 100
+          "title": "Mayonesa",
+          "description": "Mayonesa Artesanal",
+          "code": "MAY",
+          "price": 0,
+          "status": true,
+          "stock": 100,
+          "category": "Salsas"
      },
      {
           "id": 13,
-          "nombre": "Pollo",
-          "stock": 100
-     },
-     {
-          "id": 14,
-          "nombre": "Pepinillos",
-          "stock": 100
-     },
-     {
-          "id": 15,
-          "nombre": "Carne angus",
-          "stock": 100
-     },
-     {
-          "id": 17,
-          "nombre": "Platano",
-          "class": "Base"
-     },
-     {
-          "id": 18,
-          "nombre": "mayonesa",
-          "class": "salsa",
-          "stock": 100
-     },
-     {
-          "id": 19,
-          "nombre": "Aros de cebolla",
-          "class": "Adicionales",
-          "stock": 80
-     },
-     {
-          "id": 20,
-          "nombre": "Chips de papa",
-          "class": "Adicionales",
-          "stock": 80
-     },
-     {
-          "id": 21,
-          "nombre": "Miel mostaza",
-          "class": "Salsa",
-          "stock": 80
+          "title": "Ketchup",
+          "description": "Salsa de tomate",
+          "code": "STO",
+          "price": 0,
+          "stock": 100,
+          "category": "Salsa"
      }
 ]

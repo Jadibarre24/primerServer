@@ -5,10 +5,6 @@ const router = Router()
 
 productosManager.path= "./src/data/products.json"
 
-/* router.get("/", (req, res) => { })
-router.post("/", (req, res) => { })
-router.delete("/", (req, res) => { })
- */
 router.get("/", async (req, res) => {
     let productos
     try {
@@ -25,8 +21,31 @@ router.get("/", async (req, res) => {
         )
 
     }
-    res.send(productos)
     console.log(productos)
+    let { limit, skip } = req.query
+    if (limit) {
+        limit = Number(limit)
+        if (isNaN(limit)) {
+            res.setHeader('Content-Type', 'application/json');
+            return res.status(400).json({ error: `Ingrese numeros` })
+        }
+    } else {
+        limit = productos.length
+    }
+
+    if (skip) {
+        skip = Number(skip)
+        if (isNaN(skip)) {
+            res.setHeader('Content-Type', 'application/json');
+            return res.status(400).json({ error: `Datos incorrectos ingrese numeros` })
+        }
+    } else {
+        skip = 0
+    }
+
+    let resultado = productos.slice(skip, skip + limit)
+    res.setHeader('Content-Type', 'application/json');
+    return res.status(200).json({ resultado });
 })
 
 router.get("/api/productos/", (req, res) => {
@@ -44,7 +63,7 @@ router.get("/api/productos/", (req, res) => {
     }
 })
 
-router.get("/:id", async (req, res) => {
+router.get("/:pid", async (req, res) => {
     let { id } = req.params
     id = Number(id)
     if (isNaN(id)) {
@@ -75,35 +94,50 @@ router.get("/:id", async (req, res) => {
 })
 
 router.post("/", async (req, res) => {
-    let { nombre, ...otros } = req.body
-    if (!nombre) {
-        res.setHeader('Content-Type', 'application/json');
-        return res.status(400).json({ error: `Agregue nombre ` })
-    }
+    let { title, description, code , price ,status, stock , category, ...otros} = req.body;
+    if (!title) {
+        if (!description){
+            if (!code) {
+                if (!price) {
+                    if (!stock) {
+                        if (!category){
 
-    let productos = await productosManager.getProductos()
-    let existe = productos.find(p => p.nombre.toLowerCase() === nombre.toLowerCase())
-    if (existe) {
+                        }
+            }}}}     
+   /*  if (!title || !description || !code || !price || !status || stock ||!category) { */
         res.setHeader('Content-Type', 'application/json');
-        return res.status(400).json({ error: `Ya exixte producto llamado ${nombre} ` })
+        return res.status(400).json({ error: `Agregue todos los datos  ` });
     }
 
     try {
-        let productoNuevo = await productosManager.addProducto({ nombre, ...otros });
+        let productos = await productosManager.getProductos()
+        let existe = productos.find(p => p.title.toLowerCase() === title.toLowerCase())
+        let existeCode = productos.find(p => p.title.toLowerCase() === title.toLowerCase())
+        if (existe) {
+            res.setHeader('Content-Type', 'application/json');
+            return res.status(400).json({ error: `Ya exixte producto llamado ${title} ` })
+        }   else if (existeCode) {
+            res.setHeader('Content-Type', 'application/json');
+            return res.status(400).json({ error: `Ya exixte producto con el codigo ${code} ` }) 
+        }
+        let productoNuevo = await productosManager.addProducto({ title, description, code , price ,status, stock , category, ...otros  });
         res.setHeader('Content-Type', 'application/json');
         return res.status(200).json({ productoNuevo });
-    } catch (error) {
+    }
+        
+    catch (error) {
         console.log(error);
-        res.setHeader('Content-Type', 'application/json');
+        res.setHeader('Content-Type','application/json');
         return res.status(500).json(
             {
-                error: `Error inesperado en el servidor - Intente más tarde, o contacte a su administrador`,
-                detalle: `${error.message}`
+                error:`Error inesperado en el servidor - Intente más tarde, o contacte a su administrador`,
+                detalle:`${error.message}`
             }
         )
-
-    }
+        
+};
 })
+
 router.post("/:id", async (req, res) => {
     let { id } = req.params
     id = Number(id)
@@ -111,21 +145,21 @@ router.post("/:id", async (req, res) => {
         res.setHeader('Content-Type', 'application/json');
         return res.status(400).json({ error: `Ingrese id valido` })
     }
-    let { nombre, ...otros } = req.body
-    if (!nombre) {
+    let { title, ...otros } = req.body
+    if (!title) {
         res.setHeader('Content-Type', 'application/json');
         return res.status(400).json({ error: `Agregue nombre ` })
     }
 
     let productos = await productosManager.getProductos()
-    let existe = productos.find(p => p.nombre.toLowerCase() === nombre.toLowerCase())
+    let existe = productos.find(p => p.title.toLowerCase() === title.toLowerCase())
     if (existe) {
         res.setHeader('Content-Type', 'application/json');
-        return res.status(400).json({ error: `Ya exixte producto llamado ${nombre} ` })
+        return res.status(400).json({ error: `Ya exixte producto llamado ${title} ` })
     }
 
     try {
-        let productoRecuperado = await productosManager.rescueProducto({ id, ...otros });
+        let productoRecuperado = await productosManager.rescueProducto({ title, ...otros });
         res.setHeader('Content-Type', 'application/json');
         return res.status(200).json({ productoRecuperado });
     } catch (error) {
@@ -140,7 +174,7 @@ router.post("/:id", async (req, res) => {
 
     }
 })
-
+//put con error no detectado 
 router.put("/:id", async (req, res) => {
     let { id } = req.params
     id = Number(id)
@@ -173,14 +207,13 @@ router.put("/:id", async (req, res) => {
 
     delete modificar.id
 
-    if (modificar.nombre) {
-        producto.find(p => p.nombre.toLowerCase() === modificar.name.toLowerCase() && p.id !== id)
+    if (modificar.title) {
+        let existe = producto.find(p => p.title.toLowerCase() === modificar.title.toLowerCase() && p.id !== id)
         if (existe) {
             res.setHeader('Content-Type', 'application/json');
-            return res.status(400).json({ error: `Ya existe producto ${modificar}` })
+            return res.status(400).json({ error: `Ya hay otro heroe llamado ${modificar.title}` })
         }
     }
-
     try {
         let productoModificado = await productosManager.updateProducto(modificar)
 
