@@ -1,5 +1,5 @@
-const { json } = require("express")
-const fs=require("fs")
+import { json } from ("express")
+import fs from("fs")
 
 
 class productosManager{
@@ -75,4 +75,3 @@ class productosManager{
     }
 }
 
-module.exports=productosManager

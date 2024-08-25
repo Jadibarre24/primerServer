@@ -1,8 +1,8 @@
-const { json } = require("express")
-const fs=require("fs")
+import { json } from ("express")
+import fs from("fs")
 
 
-class cartsManager{
+export class productosManager{
     static path
 
     static async getProductos(){
@@ -14,6 +14,7 @@ class cartsManager{
         }
     }
 
+    //ERROR AL AGREGAR PRODUCTO 
     static async addProdCart(producto={}){
         let productosCart=await this.getProductos()
         let id = 1
@@ -34,4 +35,4 @@ class cartsManager{
     }
 }
 
-module.exports = cartsManager
+ 

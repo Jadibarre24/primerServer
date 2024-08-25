@@ -1,6 +1,7 @@
-const { Router } = require("express")
-const productosManager= require ("../dao/productosManager")
-const cartsManager = require ("../dao/cartsManager")
+import { Router } from("express")
+import productosManager from ("../dao/productosManager")
+import cartsManager from ("../dao/cartsManager")
+
 const router = Router()
 
 cartsManager.path= "./src/data/carrito.json"
@@ -33,7 +34,7 @@ router.get("/:id", async (req, res) => {
     }
     res.status(200).json({ producto });
 })
-
+// ERROR AL AGREGAR PRODUCTOS PENDIENTE!!
 router.post("/:id", async (req, res) => {
     let { id } = req.params
     id = Number(id)
@@ -61,4 +62,4 @@ router.post("/:id", async (req, res) => {
     }
 })
 
-module.exports={router}
+export {router}

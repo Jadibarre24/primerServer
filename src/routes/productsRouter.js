@@ -1,7 +1,8 @@
-const { Router } = require("express")
-const productosManager= require ("../dao/productosManager")
+import { Router } from ("express");
+import { productosManager } from ("../dao/productosManager");
 
-const router = Router()
+
+export const router = Router()
 
 productosManager.path= "./src/data/productos.json"
 
@@ -20,7 +21,7 @@ router.get("/", async (req, res) => {
             }
         )
 
-    }
+    } 
     console.log(productos)
     let { limit, skip } = req.query
     if (limit) {
@@ -230,7 +231,7 @@ router.delete("/:id", async (req, res) => {
         let resultado = await productosManager.deleteProduct(id)
         if (resultado > 0) {
             res.setHeader('Content-Type', 'application/json');
-            return res.status(200).json({ payload: "Producto eliminado" });
+            return res.status(200).json({ payload: `Producto eliminado ${title}` });
         } else {
             res.setHeader('Content-Type', 'application/json');
             return res.status(500).json({ error: `Error al eliminar ` })
@@ -248,4 +249,4 @@ router.delete("/:id", async (req, res) => {
     }
 })
 
-module.exports ={router}
+export {router}
