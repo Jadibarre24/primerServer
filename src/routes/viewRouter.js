@@ -1,4 +1,5 @@
 import { Router } from 'express';
+
 export const router=Router()
 
 router.get("/",(req,res)=>{
@@ -14,4 +15,3 @@ router.get('/productos',(req,res)=>{
     res.status(200).render('productos')
 })
 
-export {router}

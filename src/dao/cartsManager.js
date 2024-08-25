@@ -1,8 +1,8 @@
-import { json } from ("express")
-import fs from("fs")
+import { json } from "express"
+import fs from"fs"
 
 
-export class productosManager{
+export class cartsManager{
     static path
 
     static async getProductos(){

@@ -1,5 +1,5 @@
-import { Router } from ("express");
-import { productosManager } from ("../dao/productosManager");
+import { Router } from "express";
+import { productosManager } from "../dao/productosManager.js";
 
 
 export const router = Router()
@@ -22,7 +22,30 @@ router.get("/", async (req, res) => {
         )
 
     } 
-    console.log(productos)
+  
+})
+
+router.get("/:id", async (req, res) => {
+    let { id } = req.params
+    id = Number(id)
+    if (isNaN(id)) {
+        res.setHeader('Content-Type', 'application/json');
+        return res.status(400).json({ error: `Ingrese id valido` })
+    }
+
+    let productos
+    try {
+        productos = await productosManager.getProductos()
+    } catch (error) {
+        console.log(error);
+        res.setHeader('Content-Type', 'application/json');
+        return res.status(500).json(
+            {
+                error: `Error inesperado en el servidor - Intente más tarde, o contacte a su administrador`,
+                detalle: `${error.message}`
+            }
+        )
+    }  console.log(productos)
     let { limit, skip } = req.query
     if (limit) {
         limit = Number(limit)
@@ -47,36 +70,7 @@ router.get("/", async (req, res) => {
     let resultado = productos.slice(skip, skip + limit)
     res.setHeader('Content-Type', 'application/json');
     return res.status(200).json({ resultado });
-})
 
-router.get("/:id", async (req, res) => {
-    let { id } = req.params
-    id = Number(id)
-    if (isNaN(id)) {
-        res.setHeader('Content-Type', 'application/json');
-        return res.status(400).json({ error: `Ingrese id valido` })
-    }
-
-    let productos
-    try {
-        productos = await productosManager.getProductos()
-    } catch (error) {
-        console.log(error);
-        res.setHeader('Content-Type', 'application/json');
-        return res.status(500).json(
-            {
-                error: `Error inesperado en el servidor - Intente más tarde, o contacte a su administrador`,
-                detalle: `${error.message}`
-            }
-        )
-    }
-
-    let producto = productos.find(p => p.id === id)
-    if (!productos) {
-        res.setHeader('Content-Type', 'application/json');
-        return res.status(400).json({ error: `Producto con id ${id} not found` })
-    }
-    res.status(200).json({ producto });
 })
 
 router.post("/", async (req, res) => {
@@ -249,4 +243,3 @@ router.delete("/:id", async (req, res) => {
     }
 })
 
-export {router}

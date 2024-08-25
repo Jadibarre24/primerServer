@@ -1,6 +1,6 @@
-import fs from("fs");
+import fs from"fs";
 
-let rutaProductos="./src/data/products.json";
+let rutaProductos="./src/data/productos.json";
 
 
 let productos = JSON.parse(fs.readFileSync(rutaProductos,{encoding:"utf-8"}));

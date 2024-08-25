@@ -2,17 +2,17 @@ import express from 'express';
 //import fs from `fs`;
 import {engine} from "express-handlebars";
 import { Server } from "socket.io";
-import {router as productsRouter }from "./routes/productsRouter";
-import {router as cartsRouter } from "./routes/cartsRouter";
-import {router as viewRouter} from './routes/viewRouter';
-import { productosManager } from './dao/productosManager';
-import { cartsManager } from './dao/cartsManager';
+import {router as productsRouter }from "./routes/productsRouter.js";
+import {router as cartsRouter } from "./routes/cartsRouter.js";
+import {router as viewRouter} from "./routes/viewRouter.js";
+import { productosManager } from "./dao/productosManager.js";
+import { cartsManager } from "./dao/cartsManager.js";
 
 
 let io
 
 productosManager.path ="./data/productos.json"
-cartsManager.path ="./data/carts.json"
+cartsManager.path ="./data/carrito.json"
 
 const PORT=8080
 

@@ -1,8 +1,8 @@
-import { Router } from("express")
-import productosManager from ("../dao/productosManager")
-import cartsManager from ("../dao/cartsManager")
+import { Router } from"express";
+/* import productosManager from "../dao/productosManager.js"; */
+import {cartsManager} from "../dao/cartsManager.js"
 
-const router = Router()
+export const router = Router()
 
 cartsManager.path= "./src/data/carrito.json"
 
@@ -16,7 +16,7 @@ router.get("/:id", async (req, res) => {
 
     let productos
     try {
-        productos = await productosManager.getProductos()
+        productos = await cartsManager.getProductos()
     } catch (error) {
         console.log(error);
         res.setHeader('Content-Type', 'application/json');
@@ -62,4 +62,3 @@ router.post("/:id", async (req, res) => {
     }
 })
 
-export {router}
