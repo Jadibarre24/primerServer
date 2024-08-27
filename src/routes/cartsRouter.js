@@ -14,9 +14,9 @@ router.get("/:id", async (req, res) => {
         return res.status(400).json({ error: `Ingrese id valido` })
     }
 
-    let productos
+    let productosCarts
     try {
-        productos = await cartsManager.getProductos()
+        productosCarts = await cartsManager.getProductos()
     } catch (error) {
         console.log(error);
         res.setHeader('Content-Type', 'application/json');
@@ -27,8 +27,8 @@ router.get("/:id", async (req, res) => {
             }
         )
     }
-    let producto = productos.find(p => p.id === id)
-    if (!productos) {
+    let producto = productosCarts.find(p => p.id === id)
+    if (!productosCarts) {
         res.setHeader('Content-Type', 'application/json');
         return res.status(400).json({ error: `Producto con id ${id} not found` })
     }

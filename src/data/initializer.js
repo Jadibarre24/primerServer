@@ -1,6 +1,6 @@
 import fs from "fs"
 
-const rutaProductos = "./src/data/products.json";
+const rutaProductos = "./src/data/productos.json";
 
 const productos = [
     { "id": 1, "nombre": "Pan", "stock": 10 },

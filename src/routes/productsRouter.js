@@ -1,16 +1,17 @@
 import { Router } from "express";
 import { productosManager } from "../dao/productosManager.js";
-
+import fs from "fs"
 
 export const router = Router()
 
-productosManager.path= "./src/data/productos.json"
+productosManager.path= "./data/productos.json"
 
 router.get("/", async (req, res) => {
-    let productos
+    
     try {
-        productos = await productosManager.getProductos()
-
+     let   productos = await productosManager.getProductos()
+        res.setHeader('Content-Type','application/json');
+        return res.status(200).json({productos});
     } catch (error) {
         console.log(error);
         res.setHeader('Content-Type', 'application/json');
