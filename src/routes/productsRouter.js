@@ -1,17 +1,17 @@
-import { Router } from "express";
 import { productosManager } from "../dao/productosManager.js";
+import { Router } from "express";
 import fs from "fs"
 
 export const router = Router()
 
-productosManager.path= "./data/productos.json"
+productosManager.path = "./src/data/productos.json"
 
 router.get("/", async (req, res) => {
-    
+
     try {
-     let   productos = await productosManager.getProductos()
-        res.setHeader('Content-Type','application/json');
-        return res.status(200).json({productos});
+        let productos = await productosManager.getProductos()
+        res.setHeader('Content-Type', 'application/json');
+        return res.status(200).json({ productos });
     } catch (error) {
         console.log(error);
         res.setHeader('Content-Type', 'application/json');
@@ -22,8 +22,8 @@ router.get("/", async (req, res) => {
             }
         )
 
-    } 
-  
+    }
+
 })
 
 router.get("/:id", async (req, res) => {
@@ -46,7 +46,7 @@ router.get("/:id", async (req, res) => {
                 detalle: `${error.message}`
             }
         )
-    }  console.log(productos)
+    } console.log(productos)
     let { limit, skip } = req.query
     if (limit) {
         limit = Number(limit)
@@ -75,17 +75,20 @@ router.get("/:id", async (req, res) => {
 })
 
 router.post("/", async (req, res) => {
-    let { title, description, code , price ,status, stock , category, ...otros} = req.body;
+    let { title, description, code, price, status, stock, category, ...otros } = req.body;
     if (!title) {
-        if (!description){
+        if (!description) {
             if (!code) {
                 if (!price) {
                     if (!stock) {
-                        if (!category){
+                        if (!category) {
 
                         }
-            }}}}     
-   /*  if (!title || !description || !code || !price || !status || stock ||!category) { */
+                    }
+                }
+            }
+        }
+        /*  if (!title || !description || !code || !price || !status || stock ||!category) { */
         res.setHeader('Content-Type', 'application/json');
         return res.status(400).json({ error: `Agregue todos los datos  ` });
     }
@@ -97,26 +100,26 @@ router.post("/", async (req, res) => {
         if (existe) {
             res.setHeader('Content-Type', 'application/json');
             return res.status(400).json({ error: `Ya exixte producto llamado ${title} ` })
-        }   else if (existeCode) {
+        } else if (existeCode) {
             res.setHeader('Content-Type', 'application/json');
-            return res.status(400).json({ error: `Ya exixte producto con el codigo ${code} ` }) 
+            return res.status(400).json({ error: `Ya exixte producto con el codigo ${code} ` })
         }
-        let productoNuevo = await productosManager.addProducto({ title, description, code , price ,status, stock , category, ...otros  });
+        let productoNuevo = await productosManager.addProducto({ title, description, code, price, status, stock, category, ...otros });
         res.setHeader('Content-Type', 'application/json');
         return res.status(200).json({ productoNuevo });
     }
-        
+
     catch (error) {
         console.log(error);
-        res.setHeader('Content-Type','application/json');
+        res.setHeader('Content-Type', 'application/json');
         return res.status(500).json(
             {
-                error:`Error inesperado en el servidor - Intente más tarde, o contacte a su administrador`,
-                detalle:`${error.message}`
+                error: `Error inesperado en el servidor - Intente más tarde, o contacte a su administrador`,
+                detalle: `${error.message}`
             }
         )
-        
-};
+
+    };
 })
 
 router.post("/:id", async (req, res) => {

@@ -11,8 +11,8 @@ import { cartsManager } from "./dao/cartsManager.js";
 
 let io
 
-productosManager.path ="./data/productos.json"
-cartsManager.path ="./data/carrito.json"
+productosManager.path ="./src/data/productos.json"
+cartsManager.path ="./src/data/carrito.json"
 
 const PORT=8080
 

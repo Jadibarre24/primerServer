@@ -1,7 +1,10 @@
 <h1>Armala a tu preferencia </h1>
+<h2>{{titulo}}</h2>
 <ul>{{#each productos}}
     <li>
-        {{title}}
+        {{title}} - Precio: <strong>$ {{price}}</strong> 
+       <br>
+        <button>Agragar</button>
     </li>
     {{/each}}
 </ul>
