@@ -127,5 +127,14 @@
           "price": 0,
           "stock": 100,
           "category": "Salsa"
+     },
+     {
+          "id": 14,
+          "title": "Mostaza",
+          "description": "Salsa de organica",
+          "code": "MOS",
+          "price": 0,
+          "stock": 100,
+          "category": "Salsa"
      }
 ]

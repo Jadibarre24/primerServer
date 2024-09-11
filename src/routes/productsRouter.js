@@ -1,4 +1,4 @@
-import { productosManager } from "../dao/productosManager.js";
+import { productosManager } from "../dao/ProductosManager.js";
 import { Router } from "express";
 import fs from "fs"
 
@@ -23,30 +23,7 @@ router.get("/", async (req, res) => {
         )
 
     }
-
-})
-
-router.get("/:id", async (req, res) => {
-    let { id } = req.params
-    id = Number(id)
-    if (isNaN(id)) {
-        res.setHeader('Content-Type', 'application/json');
-        return res.status(400).json({ error: `Ingrese id valido` })
-    }
-
-    let productos
-    try {
-        productos = await productosManager.getProductos()
-    } catch (error) {
-        console.log(error);
-        res.setHeader('Content-Type', 'application/json');
-        return res.status(500).json(
-            {
-                error: `Error inesperado en el servidor - Intente más tarde, o contacte a su administrador`,
-                detalle: `${error.message}`
-            }
-        )
-    } console.log(productos)
+    /* console.log(productos)
     let { limit, skip } = req.query
     if (limit) {
         limit = Number(limit)
@@ -57,7 +34,6 @@ router.get("/:id", async (req, res) => {
     } else {
         limit = productos.length
     }
-
     if (skip) {
         skip = Number(skip)
         if (isNaN(skip)) {
@@ -71,7 +47,38 @@ router.get("/:id", async (req, res) => {
     let resultado = productos.slice(skip, skip + limit)
     res.setHeader('Content-Type', 'application/json');
     return res.status(200).json({ resultado });
+ */
 
+
+})
+
+router.get("/:id", async (req, res) => {
+    let { id } = req.params
+    id = Number(id)
+    if (isNaN(id)) {
+        res.setHeader('Content-Type', 'application/json');
+        return res.status(400).json({ error: `Ingrese id valido` })
+    }
+    let productos
+    try {
+        productos = await productosManager.getProductos()
+    } catch (error) {
+        console.log(error);
+        res.setHeader('Content-Type', 'application/json');
+        return res.status(500).json(
+            {
+                error: `Error inesperado en el servidor - Intente más tarde, o contacte a su administrador`,
+                detalle: `${error.message}`
+            }
+        )}
+        let producto = productos.find(p => p.id === id)
+        if (!producto){
+            res.setHeader('Content-Type','application/json');
+            return res.status(400).json({error:`Producto con id ${id} not found`})
+        }
+        res.setHeader('Content-Type','application/json');
+        return res.status(200).json({payload: producto});
+    
 })
 
 router.post("/", async (req, res) => {

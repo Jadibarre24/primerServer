@@ -5,8 +5,8 @@ import { Server } from "socket.io";
 import {router as productsRouter }from "./routes/productsRouter.js";
 import {router as cartsRouter } from "./routes/cartsRouter.js";
 import {router as viewRouter} from "./routes/viewRouter.js";
-import { productosManager } from "./dao/productosManager.js";
-import { cartsManager } from "./dao/cartsManager.js";
+import { productosManager } from './dao/ProductosManager.js';
+import { cartsManager } from './dao/CartsManager.js';
 
 
 let io
