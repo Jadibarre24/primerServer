@@ -1,7 +1,6 @@
 import { productosManager } from "../dao/ProductosManager.js";
 import { Router } from "express";
 import fs from "fs"
-
 export const router = Router()
 
 productosManager.path = "./src/data/productos.json"

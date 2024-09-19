@@ -1,0 +1,38 @@
+// Crear una "Json"
+db.createCollection("")
+
+// Elimina  collection 
+db."collection".drop()
+
+// Elimina  la dase de datos que este usando 
+db.dropDatabase()
+
+// ingresar un argumento a la collection
+db."namecollection".insertOne({
+    name:"Jhon", Apellido:"Diaz"
+})
+
+// ingresar un grupo de argumentos a la collection
+db."namecollection".insertMany([
+    {
+        name:'Jhon', Apellido:'Diaz'
+    },
+    {
+        name:'Pepito', Apellido:'Perez'
+    },
+    {
+        name:'Carla', Apellido:'Jimenez'
+    }, 
+    {
+        name:'Esperanza', Apellido:'Divina'
+    },
+])
+
+// busca todos los elemento 
+db."namecollection".find({nombre:"Jhon"})
+
+// busca  el primer argumento 
+db."namecollection".findOne({nombre:"Pepito"})
+
+
+
