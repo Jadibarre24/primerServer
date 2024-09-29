@@ -10,8 +10,8 @@ router.get("/",(req,res)=>{
 
 router.get('/productos',async(req,res)=>{
 
+    let titulo ="Nuestros ingredientes."
     let productos =await productosManager.getProductos()
-    let titulo ="Nuestros ingredientes"
 
     res.setHeader('Content-Type','text/html')
     res.status(200).render('productos', {

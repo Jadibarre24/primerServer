@@ -1,0 +1,171 @@
+// Crear una "Json"
+db.createCollection("")
+
+// Elimina  collection 
+db."collection".drop()
+
+// Elimina  la dase de datos que este usando 
+db.dropDatabase()
+
+// ingresar un argumento a la collection
+db."products".insertOne({
+    name:"Jhon", Apellido:"Diaz"
+})
+
+// ingresar un grupo de argumentos a la collection
+db.products.insertMany([
+     {
+          id: "1",
+          title: "Pan",
+          description: "Base para sandwich o hambuguesa",
+          code: "BR",
+          price: 5000,
+          status: true,
+          stock: 100,
+          category: "Base"
+     },
+     {
+          "id": 2,
+          "title": "Queso",
+          "description": "Suave y cremoso",
+          "code": "CH",
+          "price": 3000,
+          "status": true,
+          "stock": 100,
+          "category": "Adicionales"
+     },
+     {
+          "id": 3,
+          "title": "Lechuga",
+          "description": "Vegetales Frescos",
+          "code": "LE",
+          "price": 2000,
+          "status": true,
+          "stock": 100,
+          "category": "Adicionales"
+     },
+     {
+          "id": 4,
+          "title": "Tomate",
+          "description": "Vegetales Frescos",
+          "code": "TO",
+          "price": 2000,
+          "status": true,
+          "stock": 100,
+          "category": "Adicionales"
+     },
+     {
+          "id": 5,
+          "title": "Pepinillos",
+          "description": "Vegetales en conserva",
+          "code": "TO",
+          "price": 2000,
+          "status": true,
+          "stock": 100,
+          "category": "Adicionales"
+     },
+     {
+          "id": 6,
+          "title": "Aceitunas",
+          "description": "Vegetales en conserva",
+          "code": "AC",
+          "price": 2000,
+          "status": true,
+          "stock": 100,
+          "category": "Adicionales"
+     },
+     {
+          "id": 7,
+          "title": "Chicharron",
+          "description": "Panceta de cerdo crujiente",
+          "code": "CHi",
+          "price": 4000,
+          "status": true,
+          "stock": 100,
+          "category": "Adicionales"
+     },
+     {
+          "id": 8,
+          "title": "Tocineta",
+          "description": "Beicon de cerdo",
+          "code": "BE",
+          "price": 4000,
+          "status": true,
+          "stock": 100,
+          "category": "Adicionales"
+     },
+     {
+          "id": 9,
+          "title": "Cebolla",
+          "description": "Vegetales frescos",
+          "code": "CE",
+          "price": 1000,
+          "status": true,
+          "stock": 100,
+          "category": "Adicionales"
+     },
+     {
+          "id": 10,
+          "title": "Cebolla caramelizada",
+          "description": "Vegetales frescos en caramero de panela",
+          "code": "CEC",
+          "price": 2000,
+          "status": true,
+          "stock": 100,
+          "category": "Adicionales"
+     },
+     {
+          "id": 11,
+          "title": "Aros de cebolla",
+          "description": "Vegetales frescos apanados",
+          "code": "ACE",
+          "price": 3000,
+          "status": true,
+          "stock": 100,
+          "category": "Adicionales"
+     },
+     {
+          "id": 12,
+          "title": "Mayonesa",
+          "description": "Mayonesa Artesanal",
+          "code": "MAY",
+          "price": 0,
+          "status": true,
+          "stock": 100,
+          "category": "Salsas"
+     },
+     {
+          "id": 13,
+          "title": "Ketchup",
+          "description": "Salsa de tomate",
+          "code": "STO",
+          "price": 0,
+          "stock": 100,
+          "category": "Salsa"
+     },
+     {
+          "id": 14,
+          "title": "Mostaza",
+          "description": "Salsa de organica",
+          "code": "MOS",
+          "price": 0,
+          "stock": 100,
+          "category": "Salsa"
+     }
+])
+
+// busca todos los argumento 
+db."namecollection".find({nombre:"Jhon"})
+
+// busca  el primer argumento 
+db."namecollection".findOne({nombre:"Pepito"})
+
+// Modificar argumentos de la collection 
+db.collection.upddateOne({name:"Mostaza"})
+descripcion:[
+    'Salsa de supermercado' 
+],
+
+db.collection.upddateMany()
+
+db.products.deleteOne({title:"repollo"}) 

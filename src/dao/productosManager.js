@@ -1,19 +1,20 @@
 import { json } from "express"
 import fs from"fs"
-
+import { productsModel } from "./models/productsModel.js"
 
 export class productosManager{
     static path
 
     static async getProductos(){
-        if (fs.existsSync(this.path)){
+     /*    if (fs.existsSync(this.path)){
             let productos = JSON.parse (await fs.promises.readFile(this.path, {encoding:"utf-8"}))
             return productos
         }else{
             return[]
         }
+    } */
+    return productsModel.find()
     }
-
     static async addProducto(producto={}){
         let productos=await this.getProductos()
         let id = 1
